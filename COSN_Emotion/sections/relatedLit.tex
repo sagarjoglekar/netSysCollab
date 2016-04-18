@@ -18,4 +18,16 @@ Facial Action Coding System (FACS) based approach towards understanding human af
 The paper evaluates these AU based methods for specific AUs. They do not show a very convincing performance analysis for the 7 prime emotion bins, but evaluate classification accuracy for each of the AUs. The performance shows very promising accuracy for detecting AUs in upper and lower part of the face. Works like \cite{1027968} \cite{5771366} take these concepts forward and use features in AU zones to build classifiers. These studies employ features like Pyramids of Histograms of Gradients (PHOG) and Local Phase Quantisation (LPQ) to classify across 5 key emotions of anger, fear, joy, relief and sadness. Their methods attain a very impressive performance bracket of 67 to 74 percent detection accuracy.
 
 \subsection{ Semi-supervised learning models }
-Over the past two decades, with the surprising developments parallel computing and general purpose graphics processor computing, the space for scaling up and parallelising sparse computation has increased exponentially. This paved the way for extremely fast and scalable neural network frameworks. 
+Over the past two decades, with the surprising developments parallel computing and general purpose graphics processor computing, the space for scaling up and parallelising sparse computation has increased exponentially. This paved the way for extremely fast and scalable neural network frameworks. With these frameworks, implementing complicated network designs became possible.
+\par
+One of the researched problem was in the area of affective computing and emotion recognition. A very peculiar type of network which was put to test to solve this problem was the Deep Belief Network \cite{Hinton:2006} . Deep belief networks come under the category of semi-supervised learning, where in the network tries to extract a higher level representation just by operating on the statistical properties of the input data, and then the network is further fine-tuned using the supervised labels. Such a popular approach was first demonstrated by Hinton et.al \cite{Hinton:2006} using something called as Deep Belief networks which are basically stacked restricted Boltzmann machines. But as shown by Hinton in \cite{Hinton2} , these networks are really hard to train in a supervised manner unless the individual weights are brought to optimal values before the network is trained in supervised manner.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/DBN3}
+\caption{\textbf{Deep belief networks as Stacked Restricted Boltzmann machines}}
+\label{fig:FACSAU}
+\end{figure}
+
+\subsection{ Supervised Learning Models}
+As mentioned earlier, the problem space for machine learning can be broadly fragmented into two wide categories. When the target function to be optimised has a predefined class structure, it is called supervised learning models. The advantage of this method is that it optimises for a very well defined target function. The drawback however means that you need large amounts of reliable and labelled data. For this very problem of affective classification, we do happen to have certain datasets that we could use for training a network model. 

@@ -1,0 +1,17 @@
+\section{Dataset}
+For our work we collected posts from Vine social network, about top 100 popular posts over all and also over specific channel categories. We collected the metadata every 6 hours to make sure there is minimal overlap in rankings and we continued this exercise for over a month. Finally we filtered all the uniques posts out and collected the actual vine mp4 files. In total we have 16504 unique vine clips collected over a month that ranked in the top 100 posts across vine. We also store the individual post metadata and the profile of the post creator. Some statistics for our dataset are as follows 
+\par
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Parameter & mean Value & Median Value \\ 
+ \hline
+ Reposts & 1558 & 552 \\ 
+ Likes & 5754 & 2193 \\ 
+ Loops & 205504 & 76895 \\ 
+ \hline
+\end{tabular}
+\end{center}
+\par
+From the statistics of reactions to vines, it seems loops or the number of times a video is replayed is not necessarily a good measure to quantify popularity. However the likes and repost count could act as a good descriptor for a Vine's popularity. 
+

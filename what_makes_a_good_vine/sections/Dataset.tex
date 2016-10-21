@@ -66,8 +66,10 @@ The popularity distribution of the whole dataset follows as expected a zipf dist
 \label{fig:CDF_posts}
 \end{figure}
 
-Over the course of this study, we also used several third party datasets, to corroborate different properties of vine videos, with datasets previously studied, ranked and evaluated by other research groups. For comparing the aesthetic qualitiy of our videos, we used the dataset provided by Datta et.al \cite{datta2008algorithmic} which provided rated images , rated by a crowdsourced activity, on the scale of 0 to 7. Each image has more than 15 ratings, and the median ratings of these images were considered for our work. 
-For comparison with static images, we use the popular MIR-Flickr dataset \cite{huiskes08} which is an open source dataset of over 25,000 images crawled from the Flickr image service. 
-For our work with frame sentiments, we use the dataset provided by the work of sentibank \cite{jou2015visual} \cite{SentiBank} for baselining the performance of our detector for detecting frame sentiments in vine. Finally for doing the exploratory work with facial expressions, we used the dataset opened up to the public for the facial expression recognition competition 2013 \cite{goodfellow2013challenges} to train and test our convolutional network
+\subsubsection{Open datasets}
+Over the course of this study, we also used several third party datasets, to corroborate different properties of vine videos, with datasets previously studied, ranked and evaluated by other research groups. This allowed us to do a comparative study about the postion of micro videos in the realm of social media modalities. 
+For comparison with static web images, we use the popular MIR-Flickr dataset \cite{huiskes08} which is an open source dataset of over 25,000 images crawled from the Flickr image service. The images were verified to be aesthetically pleasing. This was achieved by making sure that they were ranked high on the ``interestingness''\footnote{https://www.flickr.com/explore/interesting} rating. These images were used as a baseline for static web images in the comparison study.
+The other end of the spectrum of web media is Youtube. To compare, we used the dataset of above 400 viral youtube videos \cite{Jiang:2014:VVS:2578726.2578754}. 
+For our work with frame sentiments, we use the dataset provided by the Sentibank researchers \cite{jou2015visual} \cite{SentiBank} for baselining the performance of our detector for detecting frame sentiments in micro videos.
 
 

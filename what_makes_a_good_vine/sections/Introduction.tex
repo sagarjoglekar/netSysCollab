@@ -2,36 +2,58 @@
 
 In the last few years, we have seen the introduction of a new form of user-generated video, where severe restrictions are placed on the duration of the content. High-profile examples include Vine, which allows users to create videos up to 6 seconds long; Instagram, which introduced videos up to 15 seconds long; and Snapchat, whose videos are officially limited to 10 seconds. Although most user-generated video platforms have placed some form of limit on the duration or size of videos (e.g., YouTube had a 10 minute limit, which has since been softened to a `default' limit of 15 mins\footnote{https://techcrunch.com/2010/12/09/youtube-time-limit-2/}), the extremely short duration time limits of Vine etc has led to the coining of a new term: \emph{micro videos}. 
 
-On the one hand, these time restrictions offer a way for the platforms to manage the size of the videos and  thereby make the infrastructure management and content delivery more manageable. Thus, the time restrictions may be thought of as an artificial limit imposed on users. On the other hand, media commentators have argued that these restrictions could fundamentally change the way we communicate~\cite{bbc}. Similarly, David Pogue, writing in the Scientific American, conjectured that micro videos be seen as whole new form of expression that is more closely related to images than to videos~\cite{pogue13}:
+
+%On the one hand, these time restrictions offer a way for the platforms to manage the size of the videos and  thereby make the infrastructure management and content delivery more manageable \ns{Is there an evidence for this statement ? Could it be that this platform is just a market need that was never exploited?}. Thus, the time restrictions may be thought of as an artificial limit imposed on users. On the other hand, 
+Some media commentators have argued that these restrictions could fundamentally change the way we communicate~\cite{bbc}. Similarly, David Pogue, writing in the Scientific American, conjectured that micro videos are a whole new form of expression more closely related to images than to videos~\cite{pogue13}:
 \begin{quotation}
 	A photograph is intended to capture a single moment, to present it for thoughtful examination. In the end, that's what a one- or six-second looping video does so well -- it's just that it expands the scope of the still image \ldots Maybe the micro video is best considered an improvement on a still picture, not a downgrade from video.
 \end{quotation}
 
-This  hypothesis raises the question of whether it is only \emph{conceptually} convenient and interesting to model  micro videos as enhanced images, or whether users also \emph{engage} with micro videos in ways similar to images. The answer has strong implications for how micro video platforms are designed and used. For instance, \ns{Miriam - pl check rest of this para and make it  sane from your perspective:} an image-like medium may benefit from image-like editing tools such as filters, cropping, fitting etc, whereas a video-like medium would benefit from non-linear or multi-track editing features. More importantly, many micro video platforms have started relaxing the time restrictions (e.g., Instagram videos can now last up to 60 seconds, and Vine recently introduced an option where users can attach a longer video up to 140 seconds long that can be reached in a single click from the 6 minute micro video). If in fact users see value in micro videos as images with embedded live action, then such attempts may alter  the very essence of the medium of expression. 
+This  hypothesis raises the question of whether it is only \emph{conceptually} convenient and interesting to model  micro videos as enhanced images, or whether users also \emph{engage} with micro videos in ways similar to images. The answer has strong implications for how micro video platforms are designed and used. For instance, advertisements in videos carry a higher price than other media. From the perspective of users, an image-like medium may benefit from image-like editing tools such as filters, cropping, fitting etc, whereas a video-like medium would benefit from non-linear or multi-track editing features. More importantly, many micro video platforms have started relaxing the time restrictions (e.g., Instagram videos can now last up to 60 seconds, and Vine recently introduced an option where users can attach a longer video up to 140 seconds long that can be reached in a single click from the 6 minute micro video). If in fact users see value in micro videos as images with embedded live action, then such attempts may alter  the very essence of the medium of expression. 
 
-This paper takes a first look at how users engage with micro videos, by using Vine, one of the earliest and most popular micro video platforms, as a case study. %and also a platform with one of the shortest time duration restrictions (just over 6 seconds). 
-We start by crawling POP12K, a dataset of about 12,000 videos which have been deemed by Vine to be popular, and therefore, by definition, have engaged a large number of users. We complement this by collecting ALL120K, a dataset of nearly all ($\approx$ 120,000)  videos that were uploaded to one of the 18 globally available channels on Vine. 
+This paper takes a first look at how users engage with micro videos, by using Vine, one of the earliest and most popular micro video platforms, as a case study.  %and also a platform with one of the shortest time duration restrictions (just over 6 seconds).
+We start by crawling POP12K, a dataset of about 12,000 videos which have been deemed by Vine to be popular, and therefore, by definition, have engaged a large number of users. We complement this by collecting ALL120K, a dataset of nearly all ($\approx$ 120,000)  videos that were uploaded to one of the 18 globally available channels on Vine. For each video in our datasets\footnote{Both datasets will be made available for non-commercial research.}, we derive 28 aesthetic and affect (sentiment)-related features (Refer to Table \ref{tab:Features_table}) both from the visual and the audio tracks, and collect statistics of the number of times each Vine was looped through, reposted or `revined', and liked by different users. 
 
-For each video in our dataset, we derive \ns{XXX} aesthetic and affect (sentiment)-related features (\ns{See Table XXX}) both in the video and the audio tracks, and collect statistics of the number of times each Vine was looped through, reposted or `revined', and liked by different users. Basing our study on these features, we systematically examine the nature of user engagement in Vine on three levels: First, we compare the features of micro videos in POP12K with corresponding features of popular content on image-based and video-based user generated content platforms (Flickr and YouTube respectively) and find evidence suggesting that Vine falls on a spectrum between images and videos. 
+Basing our study on these features, we systematically examine the nature of user engagement in Vine on three levels. First, we compare the features of micro videos in POP12K with corresponding features of popular content on image-based and video-based user generated content platforms (Flickr and YouTube respectively) and find for the first time quantitative evidence of Vine as a new form of expression falling on a spectrum between images and videos. 
 
-Next, we ask how these features vary over time in Vine videos, and discover a \emph{primacy of the first second} phenomenon: the best or most salient parts of the video, whether in the aesthetic space or affect space, are more prevalent in the initial seconds of the micro video, suggesting that the authors are consciously or unconsciously treating Vines similar to images -- in the initial part of the video, it is composed with aesthetics and affective quality in mind, resulting in a higher quality level; but quality declines 
+Next, we take the three metrics of popularity we collect -- counts of loops, reposts and likes -- as quantification of \emph{collective} user engagement of the consumers of a video, and ask to what extent the content-related features affect these metrics. To answer this question, we adopt a novel methodology.
+We train a random forest classifier that, given a threshold for a metric of popularity, is able to able to distinguish items on either side of the threshold into popular and unpopular classes  with high accuracy, precision and recall, using the features we have identified. The relative importance of different features then gives an indication of the extent to which those features affect the metric under consideration. We progressively consider higher and higher threshold values for videos to qualify as popular or engaging, and thereby identify trends and changes of relative importance of different features. Interestingly, we find that as the threshold for popularity becomes more and more stringent, features that represent quality of the content become collectively as important as social features such as the number of followers. Echoing an effect also observed in Instagram~\cite{bakhshi2014faces}, we find that presence of faces significantly increases engagement, and is the most important content-related factor.
 
-Finally, we take the counts of loops, reposts and likes as metrics of collective user engagement of the \emph{consumers} of a video, and ask what factors affect these metrics. We develop a simple random forest classifier that is able to distinguish popular and unpopular items with high accuracy 
+Finally, we ask how these features vary over time in Vine videos, and discover a \emph{primacy of the first second} phenomenon: the best or most salient parts of the video, whether in the aesthetic space or affect space, are more prevalent in the initial seconds of the micro video, suggesting that the authors are consciously or unconsciously treating Vines similar to images -- in the initial part, the video is composed with aesthetics and affective quality in mind, resulting in a higher quality level; but quality declines as the video plays over time. Furthermore, echoing the primacy of the first second phenomenon, we find that the quality of the first seconds of the video are as effective as the quality of the whole video in predicting popularity/engagement. Fig.~\ref{fig:Vine_samples} shows examples of these effects through two videos in our dataset of popular videos. In both videos, we observe content quality deteriorate over time, illustrating the primacy of the first seconds. 
+ 
+\begin{figure}[!tbh]
+\centering
+\includegraphics[width=\columnwidth]{figures/Vine_samples2}
+\caption{\textsl{ Vine Samples from first, second and thirds one thirds of the video. Images (a) , (b) and (c) show a progressive drop in brightness and sharpness due to shaky camera. Images (d) (e) and (f) shows a progressive drop in contrast.}}
+\label{fig:Vine_samples}
+\end{figure}
+%
+%
+%novel concept of a popularity classifier that is able to accurately distinguish popular and unpopular items for varying definitions of popularity. 
+%We develop a simple random forest classifier that is able to distinguish popular and unpopular items with high accuracy, for varying definitions of popularity. 
+%
+%
+  %The  only exception is the prevalence of faces -- the presence of faces is the single most important content-related feature that makes a vine popular, and popular videos have a  higher fraction of frames with faces in them; thus later frames also matter if the frames contain faces. 
 
-\hrule
 
-\textbf{Below this is construction material for elsewhere}
-As with other user-generated content, users may engage either as \emph{producers} of content or as \emph{consumers}. 
+%The rest of the paper is structured as follows: \S\ref{sec:dataset}...
 
-User engagement is both what users see and what they feel (cite). So we look at aesthetics as well as affect. Information comes in three channels: audio, video and sentiments. Vine engagement can be understood in terms of consumers and producers: what users produce and how they produce it. 
 
-We examine this question in three 
 
-the time restrictions shape user engagement with micro videos. To this end, we chose to examine Vine, one of the earliest and most popular micro video platforms, and also a platform with one of the shortest time duration restrictions (just over 6 seconds). We start by crawling POP12K, a dataset of about 12,000 videos which have been deemed by Vine to be popular, and therefore, have by definition, engaged a large number of users. We complement this by collecting ALL120K, a dataset of nearly all ($\approx$ 120,000)  videos that were uploaded to one of the 18 globally available channels on vine.
-
-To understand which aspects impact engagement, we look at both the video and audio signals in the micro video. We consider \emph{aesthetics} -- how well constructed the video is, as well as affect -- the emotions the video can evoke. We ask if we can distinguish ``popular'' videos from the unpopular ones based on these different signals, and find that surprisingly, we can do a great
-
-We first compare the popular micro videos in POP12K with popular user-generated images from Flickr and user-generated videos from YouTube, and find that micro videos appear to occupy a middle ground between images and videos. Then we ask whether and to what extent the
+%\hrule
+%
+%\textbf{Below this is construction material for elsewhere}
+%As with other user-generated content, users may engage either as \emph{producers} of content or as \emph{consumers}. 
+%
+%User engagement is both what users see and what they feel (cite). So we look at aesthetics as well as affect. Information comes in three channels: audio, video and sentiments. Vine engagement can be understood in terms of consumers and producers: what users produce and how they produce it. 
+%
+%We examine this question in three 
+%
+%the time restrictions shape user engagement with micro videos. To this end, we chose to examine Vine, one of the earliest and most popular micro video platforms, and also a platform with one of the shortest time duration restrictions (just over 6 seconds). We start by crawling POP12K, a dataset of about 12,000 videos which have been deemed by Vine to be popular, and therefore, have by definition, engaged a large number of users. We complement this by collecting ALL120K, a dataset of nearly all ($\approx$ 120,000)  videos that were uploaded to one of the 18 globally available channels on vine.
+%
+%To understand which aspects impact engagement, we look at both the video and audio signals in the micro video. We consider \emph{aesthetics} -- how well constructed the video is, as well as affect -- the emotions the video can evoke. We ask if we can distinguish ``popular'' videos from the unpopular ones based on these different signals, and find that surprisingly, we can do a great
+%
+%We first compare the popular micro videos in POP12K with popular user-generated images from Flickr and user-generated videos from YouTube, and find that micro videos appear to occupy a middle ground between images and videos. Then we ask whether and to what extent the
 
 %In an age when 
 %
@@ -43,4 +65,4 @@ We first compare the popular micro videos in POP12K with popular user-generated 
 %Over the past few years, the idea of microvideos has taken over the social world. It started with Vine, a company that was found in 2012, which allowed users to upload micro videos, not larger than 6 seconds. These videos are then consumed and shared, and are ranked based on how many times they are looped over. The videos have a spectrum of generes, starting from a quick home video about domestic cats and dogs, to elaborate short skits done by now acclaimed vine stars 
 %
 %\footnote{www.vanityfair.com/hollywood/2016/02/king-bach-rocketjump-youtube-vine-stars}
-%\footnote{http://newmediarockstars.com/2015/04/youtubers-viners-attend-the-white-house-correspondents-dinner-gallery/}conceive of micro v
+%\footnote{http://newmediarockstars.com/2015/04/youtubers-viners-attend-the-white-house-correspondents-dinner-gallery/}conceive of micro vuch as w

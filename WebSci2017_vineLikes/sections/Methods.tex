@@ -1,0 +1,227 @@
+%\begin{table*}[t]
+%  \centering
+%	\resizebox{2\columnwidth}{!}{
+%	\begin{tabular}{ | l | l | l | p{5cm} |}
+%  	 \hline
+%  	 \textbf{Feature Name} & \textbf{Dimensions} & \textbf{Description} \\
+%  
+%   	\hline
+%\multicolumn{3}{|c|}{\textbf{Visual quality features}} \\
+%   	\hline
+%   	 RMS contrast  & 1 & RMS contrast is calculated as standard deviation across all the pixels relative to mean intensity  \\
+%   	 \hline
+%   	 Weber Contrast & 1 & Weber contrast is  calculated as  $ F_\textit{weber} = \sum_{x = width}\sum_{y = height} \frac{I(x,y) - I_\textit{average}}{I_\textit{average}} $ \\
+%   	 \hline
+%   	 Gray Contrast & 1 & Gray contrast is calculated in similar to RMS contrast in HSL colour space for the L value of pixels. \\
+%   	 \hline
+%   	 Simplicity & 2 & Simplicty of composition of a photograph is a distinguishible factor that directly correlates with professionalism of the creator \cite{ke2006design}.\\
+%   						 && We calculate Image simplicity by two methods: Yeh simplicity~\cite{yeh2010personalized} and Luo simplicity~\cite{luo2008photo}. \\
+%   	 \hline
+%   	 Naturalness & 1 & How much does the image colors and objects match the real human perception? \\
+%   	 					    &&To compute image naturaleness we convert the image into the HSV color space and  then \\
+%   	 					    &&identify pixels corresponding to natural objects like skin, grass, sky, water etc. \\
+%   	 					    &&This is done by considering pixels which an average brigtness V \begin{math} \in \end{math} [20 , 80] and saturation S > 0.1. \\
+%   	 					    &&The final naturalness score is calculated by finding the weighted average of all the groups of pixels. \cite{predictingPintrest}. \\
+%   	 \hline
+%   	 Colourfulness & 1 & A measure of colourfulness that describes the deviation from a pure gray image. It is calculated in RGB colour space as  \\
+%   	 						   && $ \sqrt{\sigma_\textit{rg}^2 + \sigma_\textit{yb}^2 } + 0.3\sqrt{\mu_\textit{rg}^2 + \mu_\textit{yb}^2}$ where $ \textit{rg} = \textit{R} - \textit{G}$\\
+%   	 						   && and $ yb = \frac{R  + G}{2} $ and $\mu \text{ and }  \sigma $ represent mean and standard deviation respectively \\
+%   	 \hline
+%   	 Hue Stats & 2 & Hue mean and variance which signifies the range of pure colours present in the image. It is directly derived from the HSL colour space \\
+%   	 \hline
+%   	 LR balance & 1 & Difference in intensity of pixels between two sections of an image is also a good measure of aesthetic quality. \\
+%   	 					   && In non-ideal lighting conditions, images and videos tend to be over exposed in one part and correctly exposed in other. \\
+%   	 					   && This is generally a sign of amateur creator. To capture this we compare the distribution of intensities of pixels in the left and right side of the image.\\
+%   	 					   && The distance between the two distributions is measured using Chi-squared distance..\\
+%   	 \hline
+%   	  Rule of Thirds & 1 & This feature deals with compositional aspects of a photograph.This feature basically calculates if the object of \\
+%   	  							 && interest is placed in one of the imaginary intersection of lines drawn at approximate one third of the horizontal and vertical postions.\\
+%   	  							 && This is a well known aesthetic guideline for photographers. \\
+%   	 \hline
+%   	  ROI proportion & 1 & Measure of prominance given to salient objects. This measure detects the salient object in an image and then measures proportion of pixels its \\
+%   	  							  && relative to the image\\
+%   	 \hline
+%   	  Image brightness & 3 & Features signify brightness of the image. Includes average brightness, saturation  and saturation variance\\
+%   	 \hline
+%   	 Image sharpness & 1 & A measure of the clarity and level of detail of an image. Sharpness can be determined as a function of its Laplacian,\\
+%   	 								&& normalized by the local average luminance in the surroundings of each pixel, i.e., \\
+%   	 								&& $\sum_{x, y} \frac{L(x, y)}{\mu_{xy}}$, with $L(x, y) = \frac{\partial^2I}{\partial x^2}+\frac{\partial^2I}{\partial y^2}$, \\
+%   	 								&& where $\mu_xy$ denotes the average luminance around pixel (x, y).\\
+%   	\hline
+%   	Sharp Pixel Proportion & 1 & Out of focus or blurry photographs are generally not considered aesthetically pleasing. In this feature we measure the proportion of sharp pixels\\
+%   											&& compared to total pixels. We compute sharp pixels by converting the image in the frequency domain and then looking at the pixel \\
+%   											&& corresponding to the regions of highest frequency \cite{yeh2010personalized}, using the OpenIMAJ \cite{Hare:2011:OIJ:2072298.2072421} tool.\\
+%   	\hline
+%   	\multicolumn{3}{|c|}{\textbf{Higher level Features}}\\
+%    \hline
+%   	Face Percentage & 1 & Percentage of frames in a video, which have been tested positive for atleast one face. Faces detected using Viola Jones Detector \cite{viola2004robust}\\
+%   	\hline
+%    Sentiment features & 1 & Median frame sentiment of all the sampled frames from a micro video. The sentiment was calculater using the Multilingual Visual Sentiment Ontology detector \cite{jou2015visual} \\  	
+%   	\hline
+%   	\multicolumn{3}{|c|}{\textbf{Audio quality features}}\\
+%     \hline
+%   	Audio Rhytmical Features & 2 & Onset rate and zero crossing rate which talks about rhythmic component of track \cite{lartillot2007matlab}\\
+%   	\hline
+%   	Loudness & 2 & Overall energy and average short time energy which signifies loudness of the track \cite{lartillot2007matlab}\\
+%   	\hline
+%   	Mode & 1 & Musical mode of the audio tract (major or minor). \cite{lartillot2007matlab} \\
+%   	\hline
+%   	Roughness & 2 & measure of dissonance values between all peak pairs in the track \cite{lartillot2007matlab} \\
+%   	\hline
+%    	\multicolumn{3}{|c|}{\textbf{Social engagement-related features}}\\
+%    \hline
+%
+%  	 Social Features & 2 & Number of followers of the user who posted a video and past number of posts uploaded by the same user. \\
+%  	 						&& The past uploads is a good measure of how good a user is embedded in a social network  \\
+%	\hline
+%    
+%    \end{tabular}
+%  }
+%  \caption{Dimensionality and description of features used to describe Vine videos}
+%  \label{tab:Features_table}
+%\end{table*}
+\subsection{Feature Descriptions}
+\label{sec:features}
+In order to fully understand how micro-videos engage users, we characterise the content of videos using computer vision and computational aesthetics techniques and  extract a number of features(Table~\ref{tab:Features_table}), which can be divided into the following categories: 
+
+	\noindent\textbf{Image quality features} These features are mostly taken from computational aesthetics literature, and have been recognised as heuristics for good photography. Prior work~\cite{predictingPintrest} has identified a set of image quality features that robustly predict user interest in images. We  adapt these to videos by computing  the features on images taken at regular intervals from the video under consideration, and use the values to understand intrinsic quality of Vine videos. We use a combination of low-level features such as contrast, colourfulness, hue saturation, L-R balance, brightness and sharp pixel proportion, together more high-level features such as simplicity, naturalness of the image, and adherence to the  ``rule of thirds'' heuristic. 
+	
+	\noindent\textbf{Audio features}	
+	Following previous work on micro videos~\cite{redi20146}, we use audio features known to have an impact on emotion and reception. Using open source tools\cite{lartillot2007matlab,laurier2009exploring}, we measure \emph{loudness} (overall volume of the sound track), the \emph{mode} (major or minor key), \emph{roughness} (dissonance in the sound track), and \emph{rythmical} features describing abrupt rhythmical changes in the audio signal. 
+	
+	\noindent\textbf{Higher Level features} Affect (emotions experienced) is well known to strongly impact on user engagement~\cite{o2008user,leung2009user}. To understand the sentiment conveyed by the video frames, we use the Multi Lingual Sentiment Ontology detectors~\cite{jou2015visual} which express visual sentiment of video frames on a scale of 1 (negative) to 5 (positive). We sample frames at regular intervals and compute the affect evoked by these frames using this 5-point scale. Another higher level feature we consider is the presence of faces, which has previously been shown to have a strong influence on  likes and comments in image-based social media~\cite{bakhshi2014faces}. We therefore adapt it to the video context by computing the \emph{fraction of frames with faces}. Finally \emph{Number of past posts} by the creator of the video under consideration is also included to reflect user experience and activity on the social media network.
+	
+	\noindent\textbf{Social  features} We consider the \emph{number of followers} of  the author of a content as a direct feature to reflect the user's social network capital. 
+	A more detailed list can be seen in  Table \ref{tab:Features_table}
+	%	The second feature is \emph{Number of past posts} by the posted of the video under consideration. This feature shows how embedded a user is in the social network with his past activity.
+
+%Over all the challenge was to understand what makes a Vine popular. And for that the there was a need to explore correlations of all the possible abstract midlevel features made available to us because of the rapid development in the fields of Deep machine learning. The main important contribution of machine learning is the ability of computationally extracting abstract higher level representations, which vaguely represent human perception. 
+%
+%\paragraph{Aesthetic Features}
+%%Computational aesthetics is that branch of computer vision that study ways of automatically scoring images in terms of beauty and photographic quality \cite{datta}. 
+%Most of the features used in computational aesthetics literature are inspired by photographic literature and have been recognized as heuristics for good photography. Such features can help us understanding the intrinsic quality of Vine videos.
+%More specifically, we extract the following kinds of features.
+%% There are some well known computational  aesthetic features which have been recognized as heuristics for good photography. Examples include Rule of thirds, Sharp Pixel proportion, Contrast, Simplicity, Left- Right symmetry etc \cite{yeh2010personalized}. The parameters basically compute perceptual features of an image based on well know heurestic rules set by photographers. Some of the detailed references of the features we use are 
+%%
+%
+%\textbf{Contrast.}, defined as dissimilarity between pixel(colour) values in a picture. It is considered as a good  measure to understand how the photographer or creator of a visual content has used the range of colour values to her  advantage. %This measure does not always reflect the aesthetic  quality of an image, but with other features like sharp pixel proportion, can be a good approximation. 
+%For the sake of our study, we use Weber contrast, which is defined as 
+%\begin{equation}
+%F_\textit{weber} = \sum_{x = width}\sum_{y = height} \frac{I(x,y) - I_\textit{average}}{I_\textit{average}} 
+%\end{equation}
+%%
+%\vspace{3pt}\\\textbf{Simplicity.}
+%Simplicty of composition of a photograph is a distinguishible factor that directly correlates with professionalism of the creator \cite{ke2006design}. We use simplicity definition as defined in \cite{yeh2010personalized} to calculate the ROI segment simplicity and Luo simplicity \cite{luo2008photo}
+%%
+%\vspace{3pt}\\\textbf{Rule of Thirds.}
+%This feature deals with compositional aspects of a photograph. %Several papers including \cite{yeh2010personalized} study this feature and hence we use this as one of our aesthetic features. 
+%This feature basically calculates if the object of interest is placed in one of the imaginary intersection of lines drawn at approximate one third of the horizontal and vertical postions. This is a well known aesthetic guideline for photographers. However, many of the most professional photographers create artistic composition that break such simple rule.
+%%
+%\vspace{3pt}\\\textbf{Sharp Pixel Proportion.}
+%Out of focus or blurry photographs are generally not considered aesthetically pleasing. In this feature we measure the proportion of sharp pixels compared to total pixels. We compute sharp pixels by converting the image in the frequency domain and then looking at the pixel corresponding to the regions of highest frequency \cite{yeh2010personalized}, using the OpenIMAJ \cite{Hare:2011:OIJ:2072298.2072421} tool. %To do so we have to transform the image from intensity domain to frequency domain, and then count the total number of pixels which surpass the shapness criterion. We choose the criterion of sharpness in frequency domain to be 2 from \cite{yeh2010personalized}. The processing of the images was done using a tool called OpenIMAJ \cite{Hare:2011:OIJ:2072298.2072421}
+%%
+%\vspace{3pt}\\\textbf{L-R Balance.}
+%Difference in intensity of pixels between two sections of an image is also a good measure of aesthetic quality. In non-ideal lighting conditions, images and videos tend to be over exposed in one part and correctly exposed in other. This is generally a sign of amateur creator. To capture this we compare the distribution of intensities of pixels in the left and right side of the image. The distance between the two distributions is measured using Chi-squared distance.
+%%
+%\vspace{3pt}\\\textbf{Naturalness.}
+%How much does the image colors and objects match the real human perception? To compute image naturaleness we convert the image into the HSV color space and  then identify pixels corresponding to natural objects like skin, grass, sky, water etc. This is done by considering pixels which an average brigtness V \begin{math} \in \end{math} [20 , 80] and saturation S > 0.1. The final naturalness score is calculated by finding the weighted average of all the groups of pixels. \cite{predictingPintrest}.
+%%This is a very heuristic property if an image that tries to gauge the degree of correspondence of images to the human perception. We first convert the image from RGB to HSL colour space which is proved to be closer to human perception of colours. We then group pixels using a heuristic rule that chooses pixels corresponding to natural objects like skin, grass, sky, water etc. This is done by choosing pixels which have L \begin{math} \in \end{math} [20 , 80] and S > 0.1. The final naturalness score is calulated by finding the weighted average of all the groups of pixels. \cite{predictingPintrest}
+%%
+%\vspace{3pt}\\\textbf{Colourfulness}
+%This is measure of an image's difference against a pure Gray image. It reflects the overall saturation, and it is calculated as specified in \cite{yeh2010personalized}
+%
+%%\mr{The following goes into the finding.}
+%%\par
+%%For baseline and comparison, we compare the features with images taken from the dataset from photo.net \cite{datta2008algorithmic}. We only choose images with median ratings of 6 or above on aesthetic scale of 0 to 7. 
+%%Because of the very nature of Vine videos, it was possible to sample 6 images , one for each second of the video, to get a good approximation of the aesthetic quality of the whole video. So in our processing pipeline, we sample one image per second from the 6 second long vine, and then take a median score of the aesthetic parameter across the sampled image. This score is assigned to the whole video to signify the value of that particular aesthetic parameter. 
+%
+%%\begin{table}
+%%\caption{List of Aesthetic parameters computed for highly rated aesthetic images, Popular videos and unpopular videos. Most parameters have no bias towards either popular or unpopular videos}
+%
+%%\resizebox{\linewidth}{!}{%
+%%\begin{tabular}{|l|*{11}{c|}}
+%%  \hline
+%%   Parameter & \multicolumn{2}{|c|}{Aesthetic Images}  &  \multicolumn{2}{|c|}{Popular Vines} & \multicolumn{2}{|c|}{Unpopular Vines} \\ \hline
+%%   \_ & Mean&Median&Mean&Median&Mean&Median\\ \hline
+%%   \ Color Contrast & 51.05 & 30.22 & 29.88 &16.43 & 20.23  & 8.83  \\ \hline
+%%   \ Intensity Balance & 0.11 & 0.08 & 0.16 & 0.13 & 0.17 & 0.14 \\ \hline
+%%   \ Luo Simplicity & 0.009 & 0.005 & 0.013 & 0.012 & 0.015  & 0.014  \\ \hline
+%%   \ Sharp pixel proportion & 0.103 & 0.098 & 0.090 & 0.085 & 0.089  & 0.081  \\ \hline
+%%   \ Image Saturation & 0.943 & 0.974 & 0.672 & 0.678 & 0.615  & 0.646  \\ \hline
+%%   \ Avg. Brightness & 0.148 & 0.141 & 0.137 & 0.130 & 0.139  & 0.124  \\ \hline
+%%   \ Rule of Thirds & 0.879 & 0.899 & 0.883 & 0.883 & 0.878  &0.882  \\ \hline
+%%   \ ROI Proportion & 0.316 & 0.089 & 0.175 & 0.112 & 0.165  & 0.110  \\ \hline
+%%\end{tabular}}
+%%\label{aesthetic_table}
+%%\end{table}
+%
+%\paragraph{Presence of Faces }
+%Previous work has shown that the presence of face in social media images is positively correlated with user engagement\cite{bakhshi2014faces}. The same might happen in the case of Vine videos. One important aspect of micro videos is the presence of user as an actor in the video. When you look at viral vine videos, most videos seem to have a lead actor performing a skit. To annotate the presence of faces, we sample one image every second from all the videos collected. Then we calculate the percentage of frames across each video which contained at least one face in it. We use the well known Viola Jones algorithm for frontal and profile face detection. \cite{viola2004robust}.
+%%\mr{the following goes in the finding}
+%%The hypothesis here was that vine has become a social media network, where actors have gained prominence and become a reason for popularity.  When we plot the CDF of these percentages for popular against unpopular videos we see considerably higher population of popular videos to have high number of face image percentage \ref{fig:Face_CDF}.
+%
+%
+%\paragraph{Frame Sentiments}
+%%\mr{Sagar please edit this part because I don't know}
+%To understand the sentiment conveyed by the video frames, we use the Multi Lingual Sentiment Ontology detectors \cite{jou2015visual} which expresses visual sentiment of video frames on the scale of 1 to 5, 1 being negative and 5 being positive sentiments. %To make use of this framework we randomly select about 6000 videos from POP12K and 6000 videos from ALL120K datasets. Then we sample frames from these videos twice every second. This creates a time series of video frames which could be now fed into the deep neural network for estimation of sentiments. 
+%
+%
+%\paragraph{Audio Features}
+%Along with aesthetic and perceptual sentiment features, audio is a big part of any videoclip. Following previous work on micro-videos \cite{redi20146}, we decided to use features that resonate more with the perceptual side of the analysis than the low level. We use 6 features that signify \cite{redi20146} perceptual attributes like loudness, rhythmical features, roughness etc. We extract these perceptual features using open source tools and incorporate them in the list of features we use for analysis \cite{lartillot2007matlab} \cite{laurier2009exploring}. 
+%
+%\paragraph{Social Features}
+%To incorporate the effects of the social visibility for a post, the follower count and the past post count of the user who posts a particular video is used along with all the percieved features. 
+%
+
+\begin{table*}[t]
+  \centering
+\resizebox{\linewidth}{!}{%
+  \begin{tabular}{|c|r|c|p{20cm}|}
+  \hline
+	&  \textbf{Features} & \textbf{dim} & \multicolumn{1}{c|}{\textbf{Description}}\\
+	  \hline
+%    \multirow{15}{*}{\rotate{Content Features}}
+    &\multicolumn{3}{c|}{\textbf{Visual Quality Features}} \\
+	\cline{2-4}
+		& RMS contrast & 1 & RMS contrast is calculated as standard deviation across all the pixels relative to mean intensity \\[4pt]
+		&  Weber Contrast & 1 &  Weber contrast is  calculated as  $ F_\textit{weber} = \sum_{x = width}\sum_{y = height} \frac{I(x,y) - I_\textit{average}}{I_\textit{average}} $ \\[4pt]
+		& Gray Contrastv & 1 & Gray contrast is calculated in similar to RMS contrast in HSL colour space for the L value of pixels. \\ %[4pt]
+		& Simplicity & 2 & Simplicty of composition of a photograph is a distinguishible factor that directly correlates with professionalism of the creator \cite{ke2006design}. We calculate Image simplicity by two methods: Yeh simplicity~\cite{yeh2010personalized} and Luo simplicity~\cite{luo2008photo}. \\ %[4pt]
+		& Naturalness & 1 & How much does the image colors and objects match the real human perception?To compute image naturaleness we convert the image into the HSV color space and  then identify pixels corresponding to natural objects like skin, grass, sky, water etc. This is done by considering pixels which an average brigtness V \begin{math} \in \end{math} [20 , 80] and saturation S > 0.1. The final naturalness score is calculated by finding the weighted average of all the groups of pixels. \cite{predictingPintrest}. \\ %[4pt]
+		& Colourfulness & 1 & A measure of colourfulness that describes the deviation from a pure gray image. It is calculated in RGB colour space as  
+		$\sqrt{\sigma_\textit{rg}^2 + \sigma_\textit{yb}^2 } + 0.3\sqrt{\mu_\textit{rg}^2 + \mu_\textit{yb}^2}$ where $ \textit{rg} = \textit{R} - \textit{G}$ and $ yb = \frac{R + G}{2} $ and $\mu \text{ and }  \sigma $ represent mean and standard deviation respectively \\ %[4pt]
+		& Hue Stats & 2 & Hue mean and variance which signifies the range of pure colours present in the image. It is directly derived from the HSL colour space \\ %[4pt]
+		& LR balance &1 & Difference in intensity of pixels between two sections of an image is also a good measure of aesthetic quality. In non-ideal lighting conditions, images and videos tend to be over exposed in one part and correctly exposed in other. This is generally a sign of amateur creator. To capture this we compare the distribution of intensities of pixels in the left and right side of the image. The distance between the two distributions is measured using Chi-squared distance.\\
+		& Rule of Thirds & 1 & This feature deals with compositional aspects of a photograph.This feature basically calculates if the object of interest is placed in one of the imaginary intersection of lines drawn at approximate one third of the horizontal and vertical postions. This is a well known aesthetic guideline for photographers. \\
+		& ROI proportion & 1 & Measure of prominance given to salient objects. This measure detects the salient object in an image and then measures proportion of pixels its relative to the image \\
+		& Image brightness & 3 & Features signify brightness of the image. Includes average brightness, saturation  and saturation variance\\
+		& Image Sharpness & 1 & A measure of the clarity and level of detail of an image. Sharpness can be determined as a function of its Laplacian normalized by the local average luminance in the surroundings of each pixel, i.e. $\sum_{x, y} \frac{L(x, y)}{\mu_{xy}}$, with $L(x, y) = \frac{\partial^2I}{\partial x^2}+\frac{\partial^2I}{\partial y^2}$ where $\mu_xy$ denotes the average luminance around pixel (x, y).\\
+		& Sharp Pixel Proportion  & 1 & Out of focus or blurry photographs are generally not considered aesthetically pleasing. In this feature we measure the proportion of sharp pixelscompared to total pixels. We compute sharp pixels by converting the image in the frequency domain and then looking at the pixel corresponding to the regions of highest frequency \cite{yeh2010personalized}, using the OpenIMAJ \cite{Hare:2011:OIJ:2072298.2072421} tool.\\
+
+	\cline{2-4}	
+    &	\multicolumn{3}{c|}{\textbf{Higher Level Features}} \\
+	\cline{2-4}
+	 & Face Percentage & 1 & Percentage of frames in a video, which have been tested positive for atleast one face. Faces detected using Viola Jones Detector \cite{viola2004robust}\\
+	 & Frame sentiment & 1 & Median frame sentiment of all the sampled frames from a micro video. The sentiment was calculater using the Multilingual Visual Sentiment 
+	 Ontology detector \cite{jou2015visual} \\
+	 & Past post count & 1 & Number of past posts user has uploaded prior to current one. This is a good measure of user's experience with the platform and activity.\\
+
+	\cline{2-4}
+    & \multicolumn{3}{c|}{\textbf{Audio Features}} \\
+	\cline{2-4}
+	& Zero Crossing rate & 1 & Zero crossing rate measures the rhythmic component an audio track \cite{laurier2009exploring}. It ends up detecting percussion instuments like Drums in the track\\
+	& Loudness & 2 & This feature expresses overall percieved loudness as two components. Overall energy and average short time energy \cite{lartillot2007matlab}\\
+	& Mode & 1 & This feature estimates the musical mode of the audio tract (major or minor). In western music theory, major modes give a perception of happiness and minor modes of sadness. \cite{laurier2009exploring} \\
+	& Dissonance & 1 & Consonance and dissonance in an audio track has been shown to be relevent for emotional perception \cite{laurier2009exploring}. The Values of Dissnonance are a calculate by measuring space between peaks in the freaquency spectrum of the audio track. Consonant frequency peaks tend to be spaced evenly where as dissnonant frequency peaks are not\\
+	& Onset Rate & 1 & This measures the the Rhythmical perception. Onsets are peaks in the amplitude envelop of a track. Onset rate is measured by counting such events in a second. This typically gives a sense of speed to the track. \\
+	\cline{2-4}
+     &	\multicolumn{3}{c|}{\textbf{Social Features}} \\
+	\cline{2-4}
+	& Followers & 1 & Number of followers that the user posting a video has. This is the prime social feature available from the user metadata. The number of followers direcltly represent the audience which are highly probably to engage with the video on upload.\\
+	\hline
+    \end{tabular}
+    }
+        \caption{Dimensionality and description of features used to describe Vine videos}
+       \label{tab:Features_table}
+       \vspace{-5mm}
+\end{table*}
